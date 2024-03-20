@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP:Mumbai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background: url("{{ url_for('static',filename='images/mumbai.jpg')}}");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat; */
+            overflow: hidden;
+
+
+
+        }
+
+
+        .blurry-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{{ url_for('static',filename='images/mumbai.jpg')}}");
+            background-position: center;
+            background-size: cover;
+            filter: blur(5px);
+            /* Adjust the blur strength as needed */
+            z-index: -1;
+        }
+
+        .container {
+            width: 1200px;
+            /* Adjusted to take full width */
+            height: auto;
+            /* Adjusted to auto height */
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            /* Center align the form elements */
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: 270px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        .form-group .flex-item-left {
+            margin-right: 10px;
+            /* Added some margin to separate elements */
+        }
+
+        .form-group .flex-item-right {
+            margin-left: 10px;
+            /* Added some margin to separate elements */
+        }
+
+        .form-group .flex-item-left select,
+        .form-group .flex-item-right select {
+            width: 270px;
+            /* Adjusted width to match text boxes */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        /* styles for the Predicted Property Price button and text box */
+        .form-group .predict-button {
+            width: 270px;
+            /* Same width as other input elements */
+            height: 40px;
+            /* Same height as other input elements */
+            margin-left: 20px;
+            /* Adjust margin as needed */
+            font-size: 17px;
+            color: #f5f9fa;
+            background: #2691d9;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group .predict-button:hover {
+            border: 1px solid black;
+            border-color: #2691d9;
+            transition: .5s;
+        }
+
+        .form-group .predicted-price {
+            width: 270px;
+            /* Same width as other input elements */
+            /* height: 40px; */
+            /* Same height as other input elements */
+            margin-left: 20px;
+            /* Adjust margin as needed */
+            font-size: 17px;
+            border-radius: 5px;
+
+        }
+
+        .back a {
+            text-decoration: none;
+            font-size: 17px;
+            color: rgb(237, 232, 232);
+            /* background: white;
+    /* border-radius: 5px; */
+            border: none;
+            background-color: #727a76;
+            /* margin: 20px; */
+            padding: 10px;
+            width: 270px;
+            height: 40px;
+            border-radius: 5px;
+            margin-left: 850px;
+
+
+
+        }
+
+        .back a:hover {
+            color: rgb(23, 22, 22);
+            /* background-color: #2691d9; */
+
+            transition: .5s;
+            border: 1px solid rgb(234, 228, 228);
+
+        }
+        h4{
+    color:red;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="blurry-background"></div>
+    <div class="container">
+        <h1>Property Price Prediction: Mumbai</h1>
+        <h4>{{alert}}</h4>
+        <form action="/mumbai/predict" method="POST">
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <input type="text" id="area1" name="area" placeholder="Area in sqft (200 to 9900)" required>
+                </div>
+                <div class="flex-item-left">
+                    <input type="text" id="bedrooms1" name="bedrooms" placeholder="No of Bedrooms (1 to 9)" required>
+                </div>
+
+                <div class="flex-item-left">
+                    <select id="location1" name="location" required>
+                        <option value="">Location</option>
+                        <option value="15th Road">15th Road</option>
+                        <option value="4 Bunglows">4 Bunglows</option>
+                        <option value="Airoli">Airoli</option>
+                        <option value="Akurli Nagar">Akurli Nagar</option>
+                        <option value="Almeida Park">Almeida Park</option>
+                        <option value="Ambarnath">Ambarnath</option>
+                        <option value="Ambernath East">Ambernath East</option>
+                        <option value="Ambernath West">Ambernath West</option>
+                        <option value="Andheri East">Andheri East</option>
+                        <option value="Andheri West">Andheri West</option>
+                        <option value="Andheri">Andheri</option>
+                        <option value="Asangaon">Asangaon</option>
+                        <option value="azad nagar">azad nagar</option>
+                        <option value="Badlapur East">Badlapur East</option>
+                        <option value="Badlapur West">Badlapur West</option>
+                        <option value="Badlapur">Badlapur</option>
+                        <option value="Bandra East">Bandra East</option>
+                        <option value="Bandra West">Bandra West</option>
+                        <option value="Belapur">Belapur</option>
+                        <option value="Bhandup West">Bhandup West</option>
+                        <option value="Bhayandar East">Bhayandar East</option>
+                        <option value="Bhiwandi">Bhiwandi</option>
+                        <option value="Borivali East">Borivali East</option>
+                        <option value="Borivali West">Borivali West</option>
+                        <option value="Breach Candy">Breach Candy</option>
+                        <option value="Central Avenue">Central Avenue</option>
+                        <option value="Chembur East">Chembur East</option>
+                        <option value="Chembur Shell Colony">Chembur Shell Colony</option>
+                        <option value="Chembur">Chembur</option>
+                        <option value="Churchgate">Churchgate</option>
+                        <option value="Dadar East">Dadar East</option>
+                        <option value="Dahisar East">Dahisar East</option>
+                        <option value="Dahisar W">Dahisar W</option>
+                        <option value="Dahisar West">Dahisar West</option>
+                        <option value="Dahisar">Dahisar</option>
+                        <option value="Dattapada">Dattapada</option>
+                        <option value="Deonar">Deonar</option>
+                        <option value="Devidas Cross Lane">Devidas Cross Lane</option>
+                        <option value="Diamond Market Road">Diamond Market Road</option>
+                        <option value="DN Nagar Road">DN Nagar Road</option>
+                        <option value="Dokali Pada">Dokali Pada</option>
+                        <option value="Dombivali East">Dombivali East</option>
+                        <option value="Dombivali">Dombivali</option>
+                        <option value="Dombivli (West)">Dombivli (West)</option>
+                        <option value="Dronagiri">Dronagiri</option>
+                        <option value="Eastern Express Highway Vikhroli">Eastern Express Highway Vikhroli</option>
+                        <option value="Four Bungalows">Four Bungalows</option>
+                        <option value="Ganesh Nagar">Ganesh Nagar</option>
+                        <option value="Ghatkopar East">Ghatkopar East</option>
+                        <option value="Ghatkopar West">Ghatkopar West</option>
+                        <option value="Ghatkopar">Ghatkopar</option>
+                        <option value="Ghodbunder Road">Ghodbunder Road</option>
+                        <option value="Godrej Hill">Godrej Hill</option>
+                        <option value="Goregaon East">Goregaon East</option>
+                        <option value="Goregaon West">Goregaon West</option>
+                        <option value="Goregaon">Goregaon</option>
+                        <option value="Haridas Nagar">Haridas Nagar</option>
+                        <option value="Haware City">Haware City</option>
+                        <option value="Hiranandani Meadows">Hiranandani Meadows</option>
+                        <option value="I C Colony">I C Colony</option>
+                        <option value="Jankalyan Nagar">Jankalyan Nagar</option>
+                        <option value="Jogeshwari East">Jogeshwari East</option>
+                        <option value="Jogeshwari West">Jogeshwari West</option>
+                        <option value="juhu tara">juhu tara</option>
+                        <option value="Juhu">Juhu</option>
+                        <option value="Kalpataru">Kalpataru</option>
+                        <option value="Kalwa">Kalwa</option>
+                        <option value="Kalyan East">Kalyan East</option>
+                        <option value="Kalyan West">Kalyan West</option>
+                        <option value="Kalyan">Kalyan</option>
+                        <option value="Kamothe Sector 16">Kamothe Sector 16</option>
+                        <option value="Kamothe">Kamothe</option>
+                        <option value="Kandivali East">Kandivali East</option>
+                        <option value="Kandivali West">Kandivali West</option>
+                        <option value="kandivali">kandivali</option>
+                        <option value="Kanjurmarg">Kanjurmarg</option>
+                        <option value="Karanjade">Karanjade</option>
+                        <option value="Kasar vadavali">Kasar vadavali</option>
+                        <option value="KASHELI">KASHELI</option>
+                        <option value="Kasheli">Kasheli</option>
+                        <option value="Katrap">Katrap</option>
+                        <option value="Khar">Khar</option>
+                        <option value="Kharegaon">Kharegaon</option>
+                        <option value="Kharghar Sector 34C">Kharghar Sector 34C</option>
+                        <option value="Kharghar">Kharghar</option>
+                        <option value="Kolshet Road">Kolshet Road</option>
+                        <option value="kolshet">kolshet</option>
+                        <option value="Kopar Khairane Sector 19A">Kopar Khairane Sector 19A</option>
+                        <option value="Koparkhairane Station Road">Koparkhairane Station Road</option>
+                        <option value="Koper Khairane">Koper Khairane</option>
+                        <option value="Koproli">Koproli</option>
+                        <option value="Kulupwadi">Kulupwadi</option>
+                        <option value="Kurla">Kurla</option>
+                        <option value="Link Road">Link Road</option>
+                        <option value="Lokhandwala Township">Lokhandwala Township</option>
+                        <option value="Lower Parel">Lower Parel</option>
+                        <option value="Magathane">Magathane</option>
+                        <option value="Mahalaxmi">Mahalaxmi</option>
+                        <option value="Maharashtra Nagar">Maharashtra Nagar</option>
+                        <option value="Mahatma Gandhi Road">Mahatma Gandhi Road</option>
+                        <option value="Majiwada">Majiwada</option>
+                        <option value="Malad East">Malad East</option>
+                        <option value="Malad West">Malad West</option>
+                        <option value="Marol">Marol</option>
+                        <option value="MHADA Colony 20">MHADA Colony 20</option>
+                        <option value="Mira Bhayandar">Mira Bhayandar</option>
+                        <option value="Mira Road and Beyond">Mira Road and Beyond</option>
+                        <option value="Mira Road East">Mira Road East</option>
+                        <option value="Mira Road">Mira Road</option>
+                        <option value="Mulund West">Mulund West</option>
+                        <option value="Mulund">Mulund</option>
+                        <option value="Mumbai Agra National Highway">Mumbai Agra National Highway</option>
+                        <option value="Mumbai Highway">Mumbai Highway</option>
+                        <option value="Mumbai Nashik Expressway">Mumbai Nashik Expressway</option>
+                        <option value="mumbai">mumbai</option>
+                        <option value="Nahur">Nahur</option>
+                        <option value="Naigaon East">Naigaon East</option>
+                        <option value="Nala Sopara">Nala Sopara</option>
+                        <option value="Nalasopara West">Nalasopara West</option>
+                        <option value="Napeansea Road">Napeansea Road</option>
+                        <option value="Natakwala Lane">Natakwala Lane</option>
+                        <option value="Navi Basti">Navi Basti</option>
+                        <option value="Nerul">Nerul</option>
+                        <option value="no 9">no 9</option>
+                        <option value="Off Shimpoli road">Off Shimpoli road</option>
+                        <option value="Palghar">Palghar</option>
+                        <option value="Pali Hill">Pali Hill</option>
+                        <option value="Palm Beach">Palm Beach</option>
+                        <option value="Panch Pakhadi">Panch Pakhadi</option>
+                        <option value="Pant Nagar">Pant Nagar</option>
+                        <option value="Panvel">Panvel</option>
+                        <option value="Parel">Parel</option>
+                        <option value="PARSIK NAGAR">PARSIK NAGAR</option>
+                        <option value="Patlipada">Patlipada</option>
+                        <option value="Peddar Road">Peddar Road</option>
+                        <option value="Petali">Petali</option>
+                        <option value="Pokharan Road">Pokharan Road</option>
+                        <option value="Pokhran 2">Pokhran 2</option>
+                        <option value="Powai Lake">Powai Lake</option>
+                        <option value="Prabhadevi">Prabhadevi</option>
+                        <option value="raheja vihar">raheja vihar</option>
+                        <option value="Ranjanpada">Ranjanpada</option>
+                        <option value="Rawal Pada">Rawal Pada</option>
+                        <option value="Roadpali">Roadpali</option>
+                        <option value="Rustomjee Global City">Rustomjee Global City</option>
+                        <option value="Rutu Enclave">Rutu Enclave</option>
+                        <option value="Sahkar Nagar">Sahkar Nagar</option>
+                        <option value="Samata Nagar Thakur Village">Samata Nagar Thakur Village</option>
+                        <option value="Sanpada">Sanpada</option>
+                        <option value="Santacruz West">Santacruz West</option>
+                        <option value="Seawoods">Seawoods</option>
+                        <option value="Sector 10 Khanda Colony">Sector 10 Khanda Colony</option>
+                        <option value="Sector 10">Sector 10</option>
+                        <option value="Sector 11 Belapur">Sector 11 Belapur</option>
+                        <option value="Sector 11 Kamothe">Sector 11 Kamothe</option>
+                        <option value="Sector 12 A">Sector 12 A</option>
+                        <option value="Sector 12 Kharghar">Sector 12 Kharghar</option>
+                        <option value="Sector 15 Kharghar">Sector 15 Kharghar</option>
+                        <option value="Sector 15">Sector 15</option>
+                        <option value="Sector 17 Ulwe">Sector 17 Ulwe</option>
+                        <option value="Sector 18 Kamothe">Sector 18 Kamothe</option>
+                        <option value="Sector 18 Kharghar">Sector 18 Kharghar</option>
+                        <option value="Sector 18">Sector 18</option>
+                        <option value="Sector 19 Kamothe">Sector 19 Kamothe</option>
+                        <option value="Sector 19 Kharghar">Sector 19 Kharghar</option>
+                        <option value="Sector 20 Kamothe">Sector 20 Kamothe</option>
+                        <option value="Sector 20 Kharghar">Sector 20 Kharghar</option>
+                        <option value="Sector 21 Kamothe">Sector 21 Kamothe</option>
+                        <option value="Sector 21 Kharghar">Sector 21 Kharghar</option>
+                        <option value="Sector 21 Ulwe">Sector 21 Ulwe</option>
+                        <option value="Sector 22 Kamothe">Sector 22 Kamothe</option>
+                        <option value="Sector 23 Ulwe">Sector 23 Ulwe</option>
+                        <option value="Sector 30 Kharghar">Sector 30 Kharghar</option>
+                        <option value="Sector 30">Sector 30</option>
+                        <option value="Sector 35G">Sector 35G</option>
+                        <option value="Sector 35I Kharghar">Sector 35I Kharghar</option>
+                        <option value="Sector 36 Kamothe">Sector 36 Kamothe</option>
+                        <option value="Sector 36 Kharghar">Sector 36 Kharghar</option>
+                        <option value="Sector 5 Ulwe">Sector 5 Ulwe</option>
+                        <option value="Sector 5">Sector 5</option>
+                        <option value="Sector 7 Kharghar">Sector 7 Kharghar</option>
+                        <option value="Sector-12 Kamothe">Sector-12 Kamothe</option>
+                        <option value="Sector12 Kamothe">Sector12 Kamothe</option>
+                        <option value="Sector12 New Panvel">Sector12 New Panvel</option>
+                        <option value="Sector13 Khanda Colony">Sector13 Khanda Colony</option>
+                        <option value="Sector-13 Kharghar">Sector-13 Kharghar</option>
+                        <option value="Sector13 Kharghar">Sector13 Kharghar</option>
+                        <option value="Sector16 Airoli">Sector16 Airoli</option>
+                        <option value="Sector-18 Ulwe">Sector-18 Ulwe</option>
+                        <option value="Sector-26 Taloja">Sector-26 Taloja</option>
+                        <option value="Sector-3 Ulwe">Sector-3 Ulwe</option>
+                        <option value="Sector34 A Kharghar">Sector34 A Kharghar</option>
+                        <option value="Sector-34B Kharghar">Sector-34B Kharghar</option>
+                        <option value="Sector35D Kharghar">Sector35D Kharghar</option>
+                        <option value="Sector-5 Kamothe">Sector-5 Kamothe</option>
+                        <option value="Sector-50 Seawoods">Sector-50 Seawoods</option>
+                        <option value="Sector-6A Kamothe">Sector-6A Kamothe</option>
+                        <option value="Sector-8 Ulwe">Sector-8 Ulwe</option>
+                        <option value="Sector9 Kamothe">Sector9 Kamothe</option>
+                        <option value="Shakti Nagar">Shakti Nagar</option>
+                        <option value="Shastri Nagar">Shastri Nagar</option>
+                        <option value="Shimpoli">Shimpoli</option>
+                        <option value="Shirgaon">Shirgaon</option>
+                        <option value="Sindhi Society Chembur">Sindhi Society Chembur</option>
+                        <option value="Soniwadi Road">Soniwadi Road</option>
+                        <option value="Sunil Nagar">Sunil Nagar</option>
+                        <option value="taloja panchanand">taloja panchanand</option>
+                        <option value="Taloja">Taloja</option>
+                        <option value="Tardeo">Tardeo</option>
+                        <option value="thakur village kandivali east">thakur village kandivali east</option>
+                        <option value="Thakurli">Thakurli</option>
+                        <option value="Thane West">Thane West</option>
+                        <option value="Thane">Thane</option>
+                        <option value="Tolaram Colony">Tolaram Colony</option>
+                        <option value="TPS Road">TPS Road</option>
+                        <option value="ulhasnagar 4">ulhasnagar 4</option>
+                        <option value="ULWE SECTOR 19">ULWE SECTOR 19</option>
+                        <option value="Ulwe">Ulwe</option>
+                        <option value="Vakola">Vakola</option>
+                        <option value="Vangani">Vangani</option>
+                        <option value="Vasai east">Vasai east</option>
+                        <option value="Vasai West">Vasai West</option>
+                        <option value="Vasai">Vasai</option>
+                        <option value="vasant vihar thane west">vasant vihar thane west</option>
+                        <option value="Vasind">Vasind</option>
+                        <option value="Virar East">Virar East</option>
+                        <option value="Virar West">Virar West</option>
+                        <option value="Virar">Virar</option>
+                        <option value="Vivek Vidyalaya Marg">Vivek Vidyalaya Marg</option>
+                        <option value="Wadala East Wadala">Wadala East Wadala</option>
+                        <option value="Wadala">Wadala</option>
+                        <option value="West Amardeep Colony">West Amardeep Colony</option>
+                        <option value="Western Express Highway Kandivali East">Western Express Highway Kandivali East
+                        </option>
+                        <option value="Worli South Mumbai">Worli South Mumbai</option>
+                        <option value="Worli">Worli</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="DiningTable2" name="Dining-Table" required>
+                        <option value="">Dining Table</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="rainwaterharvesting2" name="rain-water-harvesting" required>
+                        <option value="">Rain Water Harvesting</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Refrigerator2" name="Refrigerator" required>
+                        <option value="">Refrigerator</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="BED2" name="BED" required>
+                        <option value="">BED</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Cafeteria2" name="Cafeteria" required>
+                        <option value="">Cafeteria</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Microwave2" name="Microwave" required>
+                        <option value="">Microwave</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Intercom2" name="Intercom" required>
+                        <option value="">Intercom</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="JoggingTrack2" name="Jogging-Track" required>
+                        <option value="">Jogging Track</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="StaffQuarter2" name="Staff-Quarter" required>
+                        <option value="">Staff Quarter</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="24X7Security2" name="24X7-Security" required>
+                        <option value="">24X7 Security</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="MultipurposeRoom2" name="Multipurpose-Room" required>
+                        <option value="">Multipurpose Room</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Gas-connection2" name="Gas-connection" required>
+                        <option value="">Gas connection</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Indoor-Games2" name="Indoor-Games" required>
+                        <option value="">Indoor Games</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Washing-Machine2" name="Washing-Machine" required>
+                        <option value="">Washing Machine</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="TV2" name="TV" required>
+                        <option value="">TV</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="AC1" name="AC" required>
+                        <option value="">AC</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Gymnasium1" name="Gymnasium" required>
+                        <option value="">Gymnasium</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <button type="submit" class="predict-button">Predict Property Price</button>
+                </div>
+                <div class="flex-item-left">
+                    <input type="text" class="predicted-price" readonly value="{{ predicted_price }}">
+                </div>
+            </div>
+            <br> <br> <br>
+            <br>
+            <br>
+
+            <div class="back">
+
+                <a href="/"> Back to The Selection City page</a>
+
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

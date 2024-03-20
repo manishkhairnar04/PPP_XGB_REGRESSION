@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP:Delhi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .blurry-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{{ url_for('static',filename='images/delhi.jpeg')}}");
+            background-position: center;
+            background-size: cover;
+            filter: blur(5px);
+            /* Adjust the blur strength as needed */
+            z-index: -1;
+        }
+
+
+        .container {
+            width: 1200px;
+            /* Adjusted to take full width */
+            height: auto;
+            /* Adjusted to auto height */
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            /* Center align the form elements */
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: 270px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        .form-group .flex-item-left {
+            margin-right: 10px;
+            /* Added some margin to separate elements */
+        }
+
+        .form-group .flex-item-right {
+            margin-left: 10px;
+            /* Added some margin to separate elements */
+        }
+
+        .form-group .flex-item-left select,
+        .form-group .flex-item-right select {
+            width: 270px;
+            /* Adjusted width to match text boxes */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 17px;
+        }
+
+        /* styles for the Predicted Property Price button and text box */
+        .form-group .predict-button {
+            width: 270px;
+            /* Same width as other input elements */
+            height: 40px;
+            /* Same height as other input elements */
+            margin-left: 20px;
+            /* Adjust margin as needed */
+            font-size: 17px;
+            color: #f5f9fa;
+            background: #2691d9;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-group .predict-button:hover {
+            border: 1px solid black;
+            border-color: #2691d9;
+            transition: .5s;
+        }
+
+        .form-group .predicted-price {
+            width: 270px;
+            /* Same width as other input elements */
+            /* height: 40px; */
+            /* Same height as other input elements */
+            margin-left: 20px;
+            /* Adjust margin as needed */
+            font-size: 17px;
+            border-radius: 5px;
+        }
+        .back a {
+    text-decoration: none;
+    font-size: 17px;
+    color: rgb(237, 232, 232);
+    /* background: white;
+    /* border-radius: 5px; */
+    border: none;
+    background-color: #727a76;
+    /* margin: 20px; */
+    padding: 10px;
+    width: 270px;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 850px;
+    
+    
+    
+}
+
+.back a:hover {
+    color: rgb(23, 22, 22);
+     /* background-color: #2691d9; */
+     
+    transition: .5s;
+    border: 1px solid rgb(234, 228, 228);
+   
+}
+h4{
+    color:red;
+}
+    </style>
+</head>
+
+<body>
+    <div class="blurry-background"></div>
+    <div class="container">
+        <h1>Property Price Prediction: Delhi</h1>
+        <h4>{{alert}}</h4>
+        <form action="/delhi/predict" method="POST">
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <input type="text" id="area1" name="area" placeholder="Area in sqft (200 to 9900)" required>
+                </div>
+                <div class="flex-item-left">
+                    <input type="text" id="bedrooms1" name="bedrooms" placeholder="No of Bedrooms (1 to 9)" required>
+                </div>
+
+                <div class="flex-item-left">
+                    <select id="location1" name="location" required>
+                        <option value="">Location</option>
+                        <option value=" Alaknanda"> Alaknanda</option>
+                        <option value="Ashok Vihar">Ashok Vihar</option>
+                        <option value="Babarpur">Babarpur</option>
+                        <option value="Bindapur">Bindapur</option>
+                        <option value="Budh Vihar">Budh Vihar</option>
+                        <option value="Burari">Burari</option>
+                        <option value="Chattarpur">Chattarpur</option>
+                        <option value="Chittaranjan Park">Chittaranjan Park</option>
+                        <option value="Dashrath Puri">Dashrath Puri</option>
+                        <option value="DLF Farms">DLF Farms</option>
+                        <option value="DLF Phase 5">DLF Phase 5</option>
+                        <option value="Dwarka Mor">Dwarka Mor</option>
+                        <option value="East of Kailash">East of Kailash</option>
+                        <option value="Govindpuri">Govindpuri</option>
+                        <option value="Greater Kailash">Greater Kailash</option>
+                        <option value="Greater kailash 1">Greater kailash 1</option>
+                        <option value="greater kailash Enclave 1">Greater kailash Enclave 1</option>
+                        <option value="Greater Kailash II">Greater Kailash II</option>
+                        <option value="Green Park">Green Park</option>
+                        <option value="Hari Nagar">Hari Nagar</option>
+                        <option value="Hauz Khas">Hauz Khas</option>
+                        <option value="Jamia Nagar">Jamia Nagar</option>
+                        <option value="Jasola">Jasola</option>
+                        <option value="Kalkaji">Kalkaji</option>
+                        <option value="Kalkaji Extension">Kalkaji Extension</option>
+                        <option value="Karol Bagh">Karol Bagh</option>
+                        <option value="Katwaria Sarai">Katwaria Sarai</option>
+                        <option value="Kaushambi">Kaushambi</option>
+                        <option value="Khanpur">Khanpur</option>
+                        <option value="Khirki Extension">Khirki Extension</option>
+                        <option value="Khizra Enclave">Khizra Enclave</option>
+                        <option value="Kismatpur">Kismatpur</option>
+                        <option value="Kistareddypet">Kistareddypet</option>
+                        <option value="Kokapet">Kokapet</option>
+                        <option value="Lajpat Nagar">Lajpat Nagar</option>
+                        <option value="Lajpat Nagar III">Lajpat Nagar III</option>
+                        <option value="Mahavir Enclave">Mahavir Enclave</option>
+                        <option value="Mahipalpur">Mahipalpur</option>
+                        <option value="Mansa Ram Park">Mansa Ram Park</option>
+                        <option value="Matiala">Matiala</option>
+                        <option value="Mayur Vihar">Mayur Vihar</option>
+                        <option value="Mayur Vihar II">Mayur Vihar II</option>
+                        <option value="mayur vihar phase 1">mayur vihar phase 1</option>
+                        <option value="Mehrauli">Mehrauli</option>
+                        <option value="Mundka">Mundka</option>
+                        <option value="Nasirpur">Nasirpur</option>
+                        <option value="nawada">nawada</option>
+                        <option value="Palam">Palam</option>
+                        <option value="Paschim Vihar">Paschim Vihar</option>
+                        <option value="Patparganj">Patparganj</option>
+                        <option value="Pitampura">Pitampura</option>
+                        <option value="Pochanpur Colony">Pochanpur Colony</option>
+                        <option value="Rohini Extension">Rohini Extension</option>
+                        <option value="Rohini sector 24">Rohini sector 24</option>
+                        <option value="Rohini Sector 9">Rohini Sector 9</option>
+                        <option value="Safdarjung Enclave">Safdarjung Enclave</option>
+                        <option value="Saidabad">Saidabad</option>
+                        <option value="Sainik Farms">Sainik Farms</option>
+                        <option value="Sarita Vihar">Sarita Vihar</option>
+                        <option value="Sarvodaya Enclave">Sarvodaya Enclave</option>
+                        <option value="Sector 10 Dwarka">Sector 10 Dwarka</option>
+                        <option value="Sector 11 Dwarka">Sector 11 Dwarka</option>
+                        <option value="Sector 12 Dwarka">Sector 12 Dwarka</option>
+                        <option value="Sector 13 Dwarka">Sector 13 Dwarka</option>
+                        <option value="Sector 13 Rohini">Sector 13 Rohini</option>
+                        <option value="Sector 16B Dwarka">Sector 16B Dwarka</option>
+                        <option value="Sector 17 Dwarka">Sector 17 Dwarka</option>
+                        <option value="Sector 18A Dwarka">Sector 18A Dwarka</option>
+                        <option value="Sector 18B Dwarka">Sector 18B Dwarka</option>
+                        <option value="Sector 19 Dwarka">Sector 19 Dwarka</option>
+                        <option value="Sector 2 Dwarka">Sector 2 Dwarka</option>
+                        <option value="Sector 20 Rohini">Sector 20 Rohini</option>
+                        <option value="Sector 21 Dwarka">Sector 21 Dwarka</option>
+                        <option value="Sector 22 Dwarka">Sector 22 Dwarka</option>
+                        <option value="Sector 22 Rohini">Sector 22 Rohini</option>
+                        <option value="Sector 23 Dwarka">Sector 23 Dwarka</option>
+                        <option value="Sector 23 Rohini">Sector 23 Rohini</option>
+                        <option value="Sector 23B Dwarka">Sector 23B Dwarka</option>
+                        <option value="Sector 24 Rohini">Sector 24 Rohini</option>
+                        <option value="Sector 25 Rohini">Sector 25 Rohini</option>
+                        <option value="Sector 28 Rohini">Sector 28 Rohini</option>
+                        <option value="Sector 3 Dwarka">Sector 3 Dwarka</option>
+                        <option value="Sector 4 Dwarka">Sector 4 Dwarka</option>
+                        <option value="Sector 5 Dwarka">Sector 5 Dwarka</option>
+                        <option value="Sector 6 Dwarka">Sector 6 Dwarka</option>
+                        <option value="Sector 7 Dwarka">Sector 7 Dwarka</option>
+                        <option value="Sector 9 Dwarka">Sector 9 Dwarka</option>
+                        <option value="Sector 9 Rohini">Sector 9 Rohini</option>
+                        <option value="Sector-14 Rohini">Sector-14 Rohini</option>
+                        <option value="Sector-18 Dwarka">Sector-18 Dwarka</option>
+                        <option value="Sector-8 Rohini">Sector-8 Rohini</option>
+                        <option value="Sector-D Vasant Kunj">Sector-D Vasant Kunj</option>
+                        <option value="Sewak Park">Sewak Park</option>
+                        <option value="Shahdara">Shahdara</option>
+                        <option value="Shakurbasti">Shakurbasti</option>
+                        <option value="Shanti Park Dwarka">Shanti Park Dwarka</option>
+                        <option value="Sheikh Sarai">Sheikh Sarai</option>
+                        <option value="Sidhartha Nagar">Sidhartha Nagar</option>
+                        <option value="Siri Fort">Siri Fort</option>
+                        <option value="South Extension 2">South Extension 2</option>
+                        <option value="SULTANPUR">SULTANPUR</option>
+                        <option value="Uttam Nagar">Uttam Nagar</option>
+                        <option value="Vasant Kunj">Vasant Kunj</option>
+                        <option value="West End">West End</option>
+                        <option value="West Sagarpur">West Sagarpur</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Gasconnection4" name="Gas-connection" required>
+                        <option value="">Gas connection</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="rainwaterharvesting4" name="rain-water-harvesting" required>
+                        <option value="">Rain Water Harvesting</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="swimmingpool4" name="swimming-pool" required>
+                        <option value="">Swimming Pool</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="resale4" name="resale" required>
+                        <option value="">Resale</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="AC4" name="AC" required>
+                        <option value="">AC</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="LiftAvailable4" name="Lift-Available" required>
+                        <option value="">Lift Available</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="MaintenanceStaff4" name="Maintenance-Staff" required>
+                        <option value="">Maintenance Staff</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="DiningTable4" name="Dining-Table" required>
+                        <option value="">Dining Table</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Refrigerator4" name="Refrigerator" required>
+                        <option value="">Refrigerator</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Microwave4" name="Microwave" required>
+                        <option value="">Microwave</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Children's playarea4" name="Children's- playarea" required>
+                        <option value="">Children's playarea</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="PowerBackup4" name="Power-Backup" required>
+                        <option value="">Power Backup</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="IndoorGames4" name="Indoor-Games" required>
+                        <option value="">Indoor Games</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="Intercom4" name="Intercom" required>
+                        <option value="">Intercom</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="CarParking4" name="Car-Parking" required>
+                        <option value="">Car Parking</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="BED4" name="BED" required>
+                        <option value="">BED</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Sports-Facility4" name="Sports-Facility" required>
+                        <option value="">Sports Facility</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <button type="submit" class="predict-button">Predict Property Price</button>
+                </div>
+                <div class="flex-item-left">
+                    <input type="text" class="predicted-price" readonly value="{{ predicted_price }}">
+                </div>
+            </div>
+            <br> <br> <br>
+            <br>
+            <br>
+            <div class="back">
+            
+                <a href="/"> Back to The Selection City  page</a>
+            
+            </div>
+
+        </form>
+        </div>
+   
+</body>
+
+</html>

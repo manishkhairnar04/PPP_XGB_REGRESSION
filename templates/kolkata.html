@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"> -->
+    
+   
+    <style>
+        
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url(/1.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        overflow: hidden;
+
+
+    }
+
+    .container {
+        width: 1200px;
+        /* Adjusted to take full width */
+        height: auto;
+        /* Adjusted to auto height */
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+        /* Center align the form elements */
+
+    }
+
+    .form-group input[type="text"],
+    .form-group select {
+        width: 270px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 17px;
+    }
+
+    .form-group .flex-item-left {
+        margin-right: 10px;
+        /* Added some margin to separate elements */
+
+    }
+
+    .form-group .flex-item-right {
+        margin-left: 10px;
+        /* Added some margin to separate elements */
+    }
+
+    .form-group .flex-item-left select,
+    .form-group .flex-item-right select {
+        width: 270px;
+        /* Adjusted width to match text boxes */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 17px;
+    }
+
+    /* styles for the Predicted Property Price button and text box */
+    .form-group .predict-button {
+        width: 270px;
+        /* Same width as other input elements */
+        height: 40px;
+        /* Same height as other input elements */
+        margin-left: 20px;
+        /* Adjust margin as needed */
+        font-size: 17px;
+        color: #f5f9fa;
+        background: #2691d9;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .form-group .predict-button:hover {
+        border: 1px solid black;
+        border-color: #2691d9;
+        transition: .5s;
+    }
+
+    .form-group .predicted-price {
+        width: 270px;
+        /* Same width as other input elements */
+        /* height: 40px; */
+        /* Same height as other input elements */
+        margin-left: 20px;
+        /* Adjust margin as needed */
+        font-size: 17px;
+        border-radius: 5px;
+
+
+    }
+    
+.back a {
+    text-decoration: none;
+    font-size: 17px;
+    color: rgb(237, 232, 232);
+    /* background: white;
+    /* border-radius: 5px; */
+    border: none;
+    background-color: #727a76;
+    /* margin: 20px; */
+    padding: 10px;
+    width: 270px;
+    height: 40px;
+    border-radius: 5px;
+    margin-left: 850px;
+    
+    
+    
+}
+
+.back a:hover {
+    color: rgb(23, 22, 22);
+     /* background-color: #2691d9; */
+     
+    transition: .5s;
+    border: 1px solid rgb(234, 228, 228);
+   
+}
+h4{
+    color:red;
+}
+
+    </style>
+</head>
+<title>PPP:Kolkata</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Property Price Prediction: Kolkata</h1>
+        <h4>{{alert}}</h4>
+        <form action="/kolkata/predict" method="POST">
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <input type="text" id="area1" name="area" placeholder="Area in sqft (200 to 9900)" required>
+                </div>
+
+                <div class="flex-item-left">
+                    <input type="text" id="bedrooms1" name="bedrooms" placeholder="No of Bedrooms (1 to 9)" required>
+                </div>
+
+                <div class="flex-item-left">
+                    <select id="location1" name="location" required>
+                        <option value="">Location</option>
+                        <option value="Baguiati">Baguiati</option>
+                        <option value="Barsat">Barsat</option>
+                        <option value="Behala">Behala</option>
+                        <option value="Bhadreswar">Bhadreswar</option>
+                        <option value="Chkravarti Para">Chkravarti Para</option>
+                        <option value="Dum Dum Park">Dum Dum Park</option>
+                        <option value="Dum Dum">Dum Dum</option>
+                        <option value="Garia">Garia</option>
+                        <option value="Gariahat">Gariahat</option>
+                        <option value="Hooghly Chinsurah">Hooghly Chinsurah</option>
+                        <option value="Hussainpur">Hussainpur</option>
+                        <option value="Joka">Joka</option>
+                        <option value="Keshtopur">Keshtopur</option>
+                        <option value="Konnagar">Konnagar</option>
+                        <option value="Kutighat">Kutighat</option>
+                        <option value="Lake Gardens">Lake Gardens</option>
+                        <option value="Madhyamgram">Madhyamgram</option>
+                        <option value="Madurdaha Hussainpur">Madurdaha Hussainpur</option>
+                        <option value="Mukundapur">Mukundapur</option>
+                        <option value="Narendrapur">Narendrapur</option>
+                        <option value="New Alipore">New Alipore</option>
+                        <option value="New Town">New Town</option>
+                        <option value="Rajarhat">Rajarhat</option>
+                        <option value="Santoshpur">Santoshpur</option>
+                        <option value="Sarsuna">Sarsuna</option>
+                        <option value="Sodepur">Sodepur</option>
+                        <option value="Sonarpur">Sonarpur</option>
+                        <option value="south dum dum">south dum dum</option>
+                        <option value="Tangra">Tangra</option>
+                        <option value="Tollygunge">Tollygunge</option>
+                        <option value="Ultadanga">Ultadanga</option>
+                        <option value="Uttarpara Kotrung">Uttarpara Kotrung</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="club-house1" name="club-house" required>
+                        <option value="">Club House</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="rain-water-harvesting1" name="rain-water-harvesting" required>
+                        <option value="">Rain Water Harvesting</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="swimming-pool1" name="swimming-pool" required>
+                        <option value="">Swimming Pool</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="resale1" name="resale" required>
+                        <option value="">Resale</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Cafeteria1" name="Cafeteria" required>
+                        <option value="">Cafeteria</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="LiftAvailable1" name="LiftAvailable" required>
+                        <option value="">Lift Available</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="MaintenanceStaff1" name="MaintenanceStaff" required>
+                        <option value="">Maintenance Staff</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="JoggingTrack1" name="JoggingTrack" required>
+                        <option value="">Jogging Track</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="LandscapedGardens1" name="LandscapedGardens" required>
+                        <option value="">Landscaped Gardens</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="VaastuCompliant1" name="VaastuCompliant" required>
+                        <option value="">Vaastu Compliant</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="MultipurposeRoom1" name="MultipurposeRoom" required>
+                        <option value="">Multipurpose Room</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="PowerBackup1" name="PowerBackup" required>
+                        <option value="">Power Backup</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="IndoorGames1" name="IndoorGames" required>
+                        <option value="">Indoor Games</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="WashingMachine1" name="WashingMachine" required>
+                        <option value="">Washing Machine</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="CarParking1" name="CarParking" required>
+                        <option value="">Car Parking</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <select id="SportsFacility1" name="SportsFacility" required>
+                        <option value="">Sports Facility</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="flex-item-left">
+                    <select id="Gymnasium1" name="Gymnasium" required>
+                        <option value="">Gymnasium</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="flex-item-left">
+                    <button type="submit" class="predict-button">Predict Property Price</button>
+                </div>
+                <div class="flex-item-left">
+                    <input type="text" class="predicted-price" readonly value="{{  predicted_price }}">
+                </div>
+            </div> <br> <br> <br>
+            <br>
+            <br>
+            <div class="back">
+            
+                <a href="/" > Back to The Selection City  page</a>
+            
+            </div>
+
+        </form>
+        
+    </div>
+</body>
+
+</html>
